@@ -1,0 +1,34 @@
+<div>
+  <button (click)="insertNewRow()" [disabled]="editInProgress" class="action-button">Insert New Row</button>
+  <button (click)="deleteSelectedRows()" [disabled]="!rowsSelected() || editInProgress" class="action-button">Delete
+    Selected Row
+  </button>
+</div>
+<div>
+  "WTF is that?"
+</div>
+<h1>
+  I am not sure
+</h1>
+<div>
+  <ag-grid-angular style="width: 100%; height: 300px;"
+                   class="ag-fresh"
+
+                   [columnDefs]="columnDefs"
+                   [rowData]="rowData"
+
+                   rowSelection="multiple"
+
+                   suppressRowClickSelection
+                   suppressHorizontalScroll
+                   suppressClickEdit
+
+                   (gridReady)="onGridReady($event)"
+                   (rowDoubleClicked)="onRowDoubleClicked($event)">
+  </ag-grid-angular>
+</div>
+
+<ng-template [ngIf]="editInProgress">
+  <app-athlete-edit-screen [athlete]="athleteBeingEdited"
+                           (onAthleteSaved)="onAthleteSaved($event)"></app-athlete-edit-screen>
+</ng-template>
